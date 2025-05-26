@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <title>عرض بحجم لابتوب مع شريطين متساويين</title>
+  <style>
+    body, html {
+      margin: 0; padding: 0;
+      height: 100vh;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .laptop-frame-wrapper {
+      position: relative;
+      width: 900px;    
+      height: 700px;    
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .black-bar {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      background-color: #000;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .top-bar {
+      top: 0;
+      height: 130px;
+    }
+
+    .bottom-bar {
+      bottom: 0;
+      height: 130px;
+    }
+
+    /* شريطين جانبيين */
+    .side-bar {
+      position: absolute;
+      top: 130px;     /* يبدأ بعد الشريط العلوي */
+      bottom: 130px;  /* ينتهي قبل الشريط السفلي */
+      width: 20px;    /* عرض الشريط الجانبي أخفف */
+      background-color: #000;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .left-side {
+      left: 0;
+    }
+
+    .right-side {
+      right: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="laptop-frame-wrapper">
+    <iframe src="https://ryhg-my.sharepoint.com/personal/s1916675_rg_moe_gov_sa/_layouts/15/embed.aspx?UniqueId=cf319d07-1f71-4b3e-9f0a-650ac4eb55d1&action=embedview"></iframe>
+
+    <div class="black-bar top-bar"></div>
+    <div class="black-bar bottom-bar"></div>
+
+    <div class="side-bar left-side"></div>
+    <div class="side-bar right-side"></div>
+  </div>
+</body>
+</html>
