@@ -1,84 +1,75 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>عرض بحجم لابتوب مع شريطين متساويين</title>
-  <style>
-    body, html {
-      margin: 0; padding: 0;
-      height: 100vh;
-      background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    .laptop-frame-wrapper {
-      position: relative;
-      width: 900px;    
-      height: 700px;    
-      box-shadow: 0 0 20px rgba(255,255,255,0.2);
-      border-radius: 8px;
-      overflow: hidden;
-      background: #000;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
-
-    .black-bar {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      background-color: #000;
-      z-index: 10;
-      pointer-events: none;
-    }
-
-    .top-bar {
-      top: 0;
-      height: 130px;
-    }
-
-    .bottom-bar {
-      bottom: 0;
-      height: 130px;
-    }
-
-    /* شريطين جانبيين */
-    .side-bar {
-      position: absolute;
-      top: 130px;     /* يبدأ بعد الشريط العلوي */
-      bottom: 130px;  /* ينتهي قبل الشريط السفلي */
-      width: 20px;    /* عرض الشريط الجانبي أخفف */
-      background-color: #000;
-      z-index: 10;
-      pointer-events: none;
-    }
-
-    .left-side {
-      left: 0;
-    }
-
-    .right-side {
-      right: 0;
-    }
-  </style>
+<meta charset="UTF-8" />
+<title>Zoom Warning</title>
+<style>
+  body, html { margin:0; padding:0; height:100vh; background:#000; color:#fff; font-family:sans-serif; }
+  #zoom-warning {
+    position: fixed; top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.9);
+    display: flex; justify-content: center; align-items: center; text-align: center;
+    padding: 20px;
+    z-index: 9999;
+  }
+  #zoom-warning button {
+    margin-top: 20px; padding: 10px 20px; cursor: pointer;
+  }
+  #content { display: none; width:900px; height:700px; margin:auto; background:#000; box-shadow: 0 0 20px rgba(255,255,255,0.2); border-radius:8px; overflow:hidden; position: relative;}
+  iframe { width:100%; height:100%; border:none; display:block;}
+  .bar { position:absolute; background:#000; z-index:10; pointer-events:none;}
+  .top-bar { top:0; left:0; right:0; height:130px;}
+  .bottom-bar { bottom:0; left:0; right:0; height:130px;}
+  .left-bar { top:130px; bottom:130px; left:0; width:20px;}
+  .right-bar { top:130px; bottom:130px; right:0; width:20px;}
+</style>
 </head>
 <body>
-  <div class="laptop-frame-wrapper">
-    <iframe src="https://ryhg-my.sharepoint.com/personal/s1916675_rg_moe_gov_sa/_layouts/15/embed.aspx?UniqueId=cf319d07-1f71-4b3e-9f0a-650ac4eb55d1&action=embedview"></iframe>
 
-    <div class="black-bar top-bar"></div>
-    <div class="black-bar bottom-bar"></div>
-
-    <div class="side-bar left-side"></div>
-    <div class="side-bar right-side"></div>
+<div id="zoom-warning">
+  <div>
+    <p>Please set your browser zoom to <strong>100%</strong> for the best experience.</p>
+    <p>On desktop: Use Ctrl + 0 or browser menu.</p>
+    <p>On mobile: Switch to Desktop Mode.</p>
+    <button id="continue-btn">Continue</button>
   </div>
+</div>
+
+<div id="content">
+  <iframe src="https://ryhg-my.sharepoint.com/personal/s1916675_rg_moe_gov_sa/_layouts/15/embed.aspx?UniqueId=cf319d07-1f71-4b3e-9f0a-650ac4eb55d1&action=embedview"></iframe>
+  <div class="bar top-bar"></div>
+  <div class="bar bottom-bar"></div>
+  <div class="bar left-bar"></div>
+  <div class="bar right-bar"></div>
+</div>
+
+<script>
+  function getZoom() {
+    return Math.round((window.outerWidth / window.innerWidth) * 100);
+  }
+
+  const warning = document.getElementById('zoom-warning');
+  const content = document.getElementById('content');
+  const btn = document.getElementById('continue-btn');
+
+  function checkZoom() {
+    if(getZoom() < 100) {
+      warning.style.display = 'flex';
+      content.style.display = 'none';
+    } else {
+      warning.style.display = 'none';
+      content.style.display = 'block';
+    }
+  }
+
+  btn.onclick = () => {
+    warning.style.display = 'none';
+    content.style.display = 'block';
+  }
+
+  window.onload = checkZoom;
+  window.onresize = checkZoom;
+</script>
+
 </body>
 </html>
